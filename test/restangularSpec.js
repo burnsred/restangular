@@ -557,6 +557,18 @@ describe("Restangular", function() {
 
       $httpBackend.flush();
     });
+
+    it("getList() should reject when endpoint does not return a list", function() {
+      $httpBackend.expectGET('/accounts?foo=1').respond({});
+
+      restangularAccounts.getList({foo: 1}).then(function(){
+        expect(false).toBe(true);
+      }, function(error) {
+        expect(error.message).toBe('Response for getList SHOULD be an array and not an object or something else');
+      })
+
+      $httpBackend.flush();
+    });
   });
 
   describe("Scoped Service", function() {

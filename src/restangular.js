@@ -1055,7 +1055,8 @@ module.provider('Restangular', function() {
             data = [];
           }
           if (!_.isArray(data)) {
-            throw new Error('Response for getList SHOULD be an array and not an object or something else');
+            deferred.reject(new Error('Response for getList SHOULD be an array and not an object or something else'));
+            return;
           }
           var processedData = _.map(data, function(elem) {
             if (!__this[config.restangularFields.restangularCollection]) {
